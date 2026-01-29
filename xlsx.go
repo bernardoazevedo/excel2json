@@ -9,7 +9,9 @@ import (
 )
 
 func Json(xlsReader io.Reader) (string, error) {
-	f, err := excelize.OpenReader(xlsReader)
+	f, err := excelize.OpenReader(xlsReader, excelize.Options{
+		RawCellValue: true,
+	})
 	if err != nil {
 		return "", fmt.Errorf("error opening file: %v", err)
 	}
