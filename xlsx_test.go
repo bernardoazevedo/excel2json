@@ -10,7 +10,9 @@ var tests = []struct {
 	xlsxFilepath string
 	expectedJson string
 }{
-	{"test.xlsx", `[{"headerA":"a2","headerB":"b2","headerC":"c2"},{"headerA":"a3","headerB":"b3","headerC":"c3"},{"headerA":"a4","headerB":"b4","headerC":"c4"}]`},
+	{
+		"test.xlsx", `[{"hA":"a2","hB":"","hC":""},{"hA":"a3","hB":"b3","hC":""},{"hA":"a4","hB":"b4","hC":"c4"},{"hA":"a5","hB":"b5","hC":"c5"},{"hA":"","hB":"b6","hC":""},{"hA":"","hB":"","hC":"c7"},{"hA":"","hB":"","hC":""}]`,
+	},
 }
 
 func TestJson(t *testing.T) {
