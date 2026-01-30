@@ -22,6 +22,8 @@ func (excelFile ExcelFile) ToJson() (string, error) {
 		json, err = xls.Json(excelFile.File)
 	case "xlsx":
 		json, err = xlsx.Json(excelFile.File)
+	default:
+		return "", fmt.Errorf("file extension don't recognized: %s", excelFile.extension())
 	}
 	if err != nil {
 		return "", fmt.Errorf("error parsing file %v: ", err)
