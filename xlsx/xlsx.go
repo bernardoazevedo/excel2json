@@ -1,4 +1,4 @@
-package xlsx2json
+package xlsx
 
 import (
 	"encoding/json"
@@ -8,8 +8,8 @@ import (
 	"github.com/xuri/excelize/v2"
 )
 
-func Json(xlsReader io.Reader) (string, error) {
-	f, err := excelize.OpenReader(xlsReader, excelize.Options{
+func Json(reader io.Reader) (string, error) {
+	f, err := excelize.OpenReader(reader, excelize.Options{
 		RawCellValue: true,
 	})
 	if err != nil {

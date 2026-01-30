@@ -1,13 +1,12 @@
-package xlsx2json
+package xlsx
 
 import (
-	"fmt"
 	"os"
 	"testing"
 )
 
 var tests = []struct {
-	xlsxFilepath string
+	filepath     string
 	expectedJson string
 }{
 	{
@@ -20,18 +19,18 @@ var tests = []struct {
 
 func TestJson(t *testing.T) {
 	for _, test := range tests {
-		file, err := os.Open(test.xlsxFilepath)
+		file, err := os.Open(test.filepath)
 		if err != nil {
-			t.Errorf("error opening %s: %v", test.xlsxFilepath, err)
+			t.Errorf("error opening %s: %v", test.filepath, err)
 		}
 
 		json, err := Json(file)
 		if err != nil {
-			t.Errorf("error parsing %s: %v", test.xlsxFilepath, err)
+			t.Errorf("error parsing %s: %v", test.filepath, err)
 		}
 
 		if json != test.expectedJson {
-			t.Errorf("Json(%s) = %s; want %s", test.xlsxFilepath, json, test.expectedJson)
+			t.Errorf("Json(%s) = %s; want %s", test.filepath, json, test.expectedJson)
 		}
 	}
 }
@@ -39,11 +38,11 @@ func TestJson(t *testing.T) {
 func BenchmarkJson(b *testing.B) {
 	test := tests[0]
 
-	file, err := os.Open(test.xlsxFilepath)
+	file, err := os.Open(test.filepath)
 	if err != nil {
-		fmt.Printf("error opening %s: %v", test.xlsxFilepath, err)
+		b.Errorf("error opening %s: %v", test.filepath, err)
 	}
-	
+
 	for b.Loop() {
 		Json(file)
 	}
