@@ -23,6 +23,7 @@ func TestJson(t *testing.T) {
 		if err != nil {
 			t.Errorf("error opening %s: %v", test.filepath, err)
 		}
+		defer file.Close()
 
 		json, err := Json(file)
 		if err != nil {
@@ -42,6 +43,7 @@ func BenchmarkJson(b *testing.B) {
 	if err != nil {
 		b.Errorf("error opening %s: %v", test.filepath, err)
 	}
+	defer file.Close()
 
 	for b.Loop() {
 		Json(file)
