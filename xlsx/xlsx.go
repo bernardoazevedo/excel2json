@@ -3,13 +3,13 @@ package xlsx
 import (
 	"encoding/json"
 	"fmt"
-	"io"
+	"os"
 
 	"github.com/xuri/excelize/v2"
 )
 
-func Json(reader io.Reader) (string, error) {
-	f, err := excelize.OpenReader(reader, excelize.Options{
+func Json(file *os.File) (string, error) {
+	f, err := excelize.OpenReader(file, excelize.Options{
 		RawCellValue: true,
 	})
 	if err != nil {
