@@ -30,8 +30,9 @@ func Json(file *os.File) (string, error) {
 	}
 
 	headerFound := false
-	var headers []string
 	var tableMap []map[string]string
+	var headers []string
+
 	for rows.Next() {
 		rowValues, err := rows.Columns()
 		if err != nil {
@@ -40,18 +41,12 @@ func Json(file *os.File) (string, error) {
 
 		if len(rowValues) > 0 {
 			if !headerFound {
+				// header
 				headers = rowValues
 				headerFound = true
 			} else {
-				eachRow := map[string]string{}
-				for headersIndex, header := range headers {
-					if headersIndex < len(rowValues) {
-						eachRow[header] = rowValues[headersIndex]
-					} else {
-						eachRow[header] = ""
-					}
-				}
-				tableMap = append(tableMap, eachRow)
+				// body
+				tableMap = append(tableMap, getBodyRow(headers, rowValues))
 			}
 		}
 	}
@@ -62,4 +57,17 @@ func Json(file *os.File) (string, error) {
 	}
 
 	return string(jsonSheet), nil
+}
+
+func getBodyRow(headers []string, row []string) map[string]string {
+	eachRow := map[string]string{}
+	for headersIndex, header := range headers {
+		// checking for empty cols
+		if headersIndex < len(row) {
+			eachRow[header] = row[headersIndex]
+		} else {
+			eachRow[header] = ""
+		}
+	}
+	return eachRow
 }
