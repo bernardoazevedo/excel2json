@@ -15,6 +15,9 @@ var tests = []struct {
 	{
 		"numbers.xlsx", `[{"Number":"50.5"},{"Number":"120"},{"Number":"12.12"}]`,
 	},
+	{
+		"emptyLines.xlsx", `[{"headerA":"A4","headerB":"B4"}]`,
+	},
 }
 
 func TestJson(t *testing.T) {

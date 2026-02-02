@@ -29,28 +29,31 @@ func Json(file *os.File) (string, error) {
 		return "", fmt.Errorf("error getting rows iterator: %v", err)
 	}
 
-	rows.Next()
-	headers, err := rows.Columns()
-	if err != nil {
-		return "", fmt.Errorf("error reading headers: %v", err)
-	}
-
-	tableMap := []map[string]string{}
+	headerFound := false
+	var headers []string
+	var tableMap []map[string]string
 	for rows.Next() {
 		rowValues, err := rows.Columns()
 		if err != nil {
 			return "", fmt.Errorf("error reading row: %v", err)
 		}
 
-		eachRow := map[string]string{}
-		for headersIndex, header := range headers {
-			if headersIndex < len(rowValues) {
-				eachRow[header] = rowValues[headersIndex]
+		if len(rowValues) > 0 {
+			if !headerFound {
+				headers = rowValues
+				headerFound = true
 			} else {
-				eachRow[header] = ""
+				eachRow := map[string]string{}
+				for headersIndex, header := range headers {
+					if headersIndex < len(rowValues) {
+						eachRow[header] = rowValues[headersIndex]
+					} else {
+						eachRow[header] = ""
+					}
+				}
+				tableMap = append(tableMap, eachRow)
 			}
 		}
-		tableMap = append(tableMap, eachRow)
 	}
 
 	jsonSheet, err := json.Marshal(tableMap)
