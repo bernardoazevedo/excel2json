@@ -1,12 +1,12 @@
-package xlsx2json
+package excel2json
 
 import (
 	"fmt"
 	"os"
 	"strings"
 
-	"github.com/bernardoazevedo/xlsx2json/xls"
-	"github.com/bernardoazevedo/xlsx2json/xlsx"
+	"github.com/bernardoazevedo/excel2json/xls"
+	"github.com/bernardoazevedo/excel2json/xlsx"
 )
 
 type ExcelFile struct {

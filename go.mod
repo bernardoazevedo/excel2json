@@ -1,4 +1,4 @@
-module github.com/bernardoazevedo/xlsx2json
+module github.com/bernardoazevedo/excel2json
 
 go 1.24.5
 

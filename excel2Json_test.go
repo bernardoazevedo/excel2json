@@ -1,4 +1,4 @@
-package xlsx2json
+package excel2json
 
 import (
 	"os"
