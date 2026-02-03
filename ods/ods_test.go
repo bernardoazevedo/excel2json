@@ -12,12 +12,12 @@ var tests = []struct {
 	{
 		"test.ods", `[{"hA":"a2","hB":"","hC":""},{"hA":"a3","hB":"b3","hC":""},{"hA":"a4","hB":"b4","hC":"c4"},{"hA":"a5","hB":"b5","hC":"c5"},{"hA":"","hB":"b6","hC":""},{"hA":"","hB":"","hC":"c7"}]`,
 	},
-	// {
-	// 	"numbers.ods", `[{"Number":"50.5"},{"Number":"120"},{"Number":"12.12"}]`,
-	// },
-	// {
-	// 	"emptyLines.ods", `[{"headerA":"A4","headerB":"B4"}]`,
-	// },
+	{
+		"numbers.ods", `[{"Number":"50,50"},{"Number":"120,00"},{"Number":"12,12"}]`,
+	},
+	{
+		"emptyLines.ods", `[{"headerA":"A4","headerB":"B4"}]`,
+	},
 }
 
 func TestJson(t *testing.T) {
