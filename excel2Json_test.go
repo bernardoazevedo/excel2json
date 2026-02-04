@@ -10,16 +10,16 @@ var tests = []struct {
 	expectedJson string
 }{
 	{
-		"xlsx/test.xlsx", `[{"hA":"a2","hB":"","hC":""},{"hA":"a3","hB":"b3","hC":""},{"hA":"a4","hB":"b4","hC":"c4"},{"hA":"a5","hB":"b5","hC":"c5"},{"hA":"","hB":"b6","hC":""},{"hA":"","hB":"","hC":"c7"}]`,
+		"xlsx/emptyLines.xlsx", `[{"headerA":"A4","headerB":"B4"}]`,
 	},
 	{
-		"xlsx/numbers.xlsx", `[{"Number":"50.5"},{"Number":"120"},{"Number":"12.12"}]`,
+		"xls/emptyLines.xls", `[{"headerA":"A4","headerB":"B4"}]`,
 	},
 	{
-		"xls/test.xls", `[{"hA":"a2","hB":"","hC":""},{"hA":"a3","hB":"b3","hC":""},{"hA":"a4","hB":"b4","hC":"c4"},{"hA":"a5","hB":"b5","hC":"c5"},{"hA":"","hB":"b6","hC":""},{"hA":"","hB":"","hC":"c7"}]`,
+		"csv/emptyLines.csv", `[{"headerA":"A4","headerB":"B4"}]`,
 	},
 	{
-		"xls/numbers.xls", `[{"Number":"50.5"},{"Number":"120"},{"Number":"12.12"}]`,
+		"ods/emptyLines.ods", `[{"headerA":"A4","headerB":"B4"}]`,
 	},
 }
 
