@@ -3,12 +3,12 @@ module github.com/bernardoazevedo/excel2json
 go 1.24.5
 
 require (
+	github.com/AlexJarrah/go-ods v1.0.7
 	github.com/shakinm/xlsReader v0.9.12
 	github.com/xuri/excelize/v2 v2.10.0
 )
 
 require (
-	github.com/AlexJarrah/go-ods v1.0.7 // indirect
 	github.com/metakeule/fmtdate v1.1.2 // indirect
 	github.com/richardlehane/mscfb v1.0.4 // indirect
 	github.com/richardlehane/msoleps v1.0.4 // indirect
