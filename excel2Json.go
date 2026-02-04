@@ -3,7 +3,7 @@ package excel2json
 import (
 	"fmt"
 	"os"
-	"strings"
+	"path/filepath"
 
 	"github.com/bernardoazevedo/excel2json/csv"
 	"github.com/bernardoazevedo/excel2json/ods"
@@ -20,16 +20,16 @@ func (excelFile ExcelFile) ToJson() (string, error) {
 	var json string
 
 	switch excelFile.extension() {
-	case "xls":
+	case ".xls":
 		json, err = xls.Json(excelFile.File)
-	case "xlsx":
+	case ".xlsx":
 		json, err = xlsx.Json(excelFile.File)
-	case "csv":
+	case ".csv":
 		json, err = csv.Json(excelFile.File)
-	case "ods":
+	case ".ods":
 		json, err = ods.Json(excelFile.File)
 	default:
-		return "", fmt.Errorf("file extension don't recognized: %s", excelFile.extension())
+		return "", fmt.Errorf("the '%s' file extension is not accepted", excelFile.extension())
 	}
 	if err != nil {
 		return "", fmt.Errorf("error parsing file %v: ", err)
@@ -39,9 +39,5 @@ func (excelFile ExcelFile) ToJson() (string, error) {
 }
 
 func (excelFile ExcelFile) extension() string {
-	filePaths := strings.Split(excelFile.File.Name(), "/")
-	filename := filePaths[len(filePaths)-1]
-	nameParts := strings.Split(filename, ".")
-	extension := nameParts[len(nameParts)-1]
-	return extension
+	return filepath.Ext(excelFile.File.Name())
 }
