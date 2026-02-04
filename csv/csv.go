@@ -10,13 +10,11 @@ import (
 func Json(file *os.File) (string, error) {
 	reader := csv.NewReader(file)
 
-
-
 	rows, err := reader.ReadAll()
 	if err != nil {
 		return "", fmt.Errorf("error reading %s: %v", file.Name(), err)
 	}
-	
+
 	var tableMap []map[string]string
 	var headers []string
 	headerFound := false
@@ -53,7 +51,6 @@ func Json(file *os.File) (string, error) {
 
 	return string(jsonSheet), nil
 }
-
 
 func getBodyRow(headers []string, row []string) map[string]string {
 	eachRow := map[string]string{}
