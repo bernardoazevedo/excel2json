@@ -46,7 +46,23 @@ func Json(file *os.File) (string, error) {
 				headerFound = true
 			} else {
 				// body
-				tableMap = append(tableMap, getBodyRow(headers, rowValues))
+				eachRow := map[string]string{}
+				itemFound := false
+				for headersIndex, header := range headers {
+					// checking for empty cols
+					if headersIndex < len(rowValues) {
+						col := rowValues[headersIndex]
+						eachRow[header] = col
+						if len(col) > 0 {
+							itemFound = true
+						}
+					} else {
+						eachRow[header] = ""
+					}
+				}
+				if itemFound {
+					tableMap = append(tableMap, eachRow)
+				}
 			}
 		}
 	}
@@ -57,17 +73,4 @@ func Json(file *os.File) (string, error) {
 	}
 
 	return string(jsonSheet), nil
-}
-
-func getBodyRow(headers []string, row []string) map[string]string {
-	eachRow := map[string]string{}
-	for headersIndex, header := range headers {
-		// checking for empty cols
-		if headersIndex < len(row) {
-			eachRow[header] = row[headersIndex]
-		} else {
-			eachRow[header] = ""
-		}
-	}
-	return eachRow
 }

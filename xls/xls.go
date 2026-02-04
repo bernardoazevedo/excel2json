@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/shakinm/xlsReader/xls"
-	"github.com/shakinm/xlsReader/xls/structure"
 )
 
 func Json(file *os.File) (string, error) {
@@ -50,8 +49,23 @@ func Json(file *os.File) (string, error) {
 			}
 
 		} else {
-			// body
-			tableMap = append(tableMap, getBodyRow(headers, cols))
+			tableRow := map[string]string{}
+			itemFound := false
+			for headerIndex, eachHeader := range headers {
+				// checking for empty cols
+				if headerIndex < len(cols) {
+					col := cols[headerIndex].GetString()
+					tableRow[eachHeader] = col
+					if len(col) > 0 {
+						itemFound = true
+					}
+				} else {
+					tableRow[eachHeader] = ""
+				}
+			}
+			if itemFound {
+				tableMap = append(tableMap, tableRow)
+			}
 		}
 	}
 
@@ -61,17 +75,4 @@ func Json(file *os.File) (string, error) {
 	}
 
 	return string(jsonSheet), nil
-}
-
-func getBodyRow(headers []string, cols []structure.CellData) map[string]string {
-	tableRow := map[string]string{}
-	for headerIndex, eachHeader := range headers {
-		// checking for empty cols
-		if headerIndex < len(cols) {
-			tableRow[eachHeader] = cols[headerIndex].GetString()
-		} else {
-			tableRow[eachHeader] = ""
-		}
-	}
-	return tableRow
 }
