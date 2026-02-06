@@ -39,7 +39,7 @@ func TestToJson(t *testing.T) {
 		}
 
 		if json != test.expectedJson {
-			t.Errorf("Json(%s) = %s; want %s", test.filepath, json, test.expectedJson)
+			t.Errorf("ToJson(%s) = %s; want %s", test.filepath, json, test.expectedJson)
 		}
 	}
 }
@@ -55,7 +55,7 @@ func BenchmarkToJson(b *testing.B) {
 	defer file.Close()
 
 	excelFile := ExcelFile{File: file}
-	
+
 	for b.Loop() {
 		excelFile.ToJson()
 	}
